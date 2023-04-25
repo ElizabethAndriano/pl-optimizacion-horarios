@@ -87,15 +87,14 @@ def getHorarioOptimo(df):
     return seleccion
 
 df = getData()
-horarioFinal = getHorarioOptimo(df)
-horarioFinal.to_excel('horarioFinal.xlsx',index=False)
-
 st.title('Calculadora de Horario Óptimo')
 
 dfEditado = st.experimental_data_editor(df)
 horarioFinal = getHorarioOptimo(dfEditado)
+horarioFinal.to_excel('horarioFinal.xlsx',index=False)
 
 st.dataframe(horarioFinal)
+st.text(horarioFinal['Costo'].sum()*1000)
 
 with open('horarioFinal.xlsx', "rb") as template_file:
         template_byte = template_file.read()
