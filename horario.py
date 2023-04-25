@@ -86,9 +86,19 @@ def getHorarioOptimo(df):
     
     return seleccion
 
-df = getData()
+st.set_page_config(
+    page_title='Horario Óptimo',
+    layout='wide',
+)
+
 st.title('Calculadora de Horario Óptimo')
 
+st.text('''Esta calculadora te permitirá encontrar la programación de horario óptima
+para las clases. Ya se encuentra un horario preestablecido, pero puedes modificar 
+las restricciones de horarios, materias y costos, así como los nombres de los 
+profesores.''')
+
+df = getData()
 dfEditado = st.experimental_data_editor(df)
 horarioFinal = getHorarioOptimo(dfEditado)
 horarioFinal.to_excel('horarioFinal.xlsx',index=False)
