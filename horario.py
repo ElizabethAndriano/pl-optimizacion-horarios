@@ -93,18 +93,23 @@ st.set_page_config(
 
 st.title('Calculadora de Horario Óptimo')
 
-st.text('''Esta calculadora te permitirá encontrar la programación de horario óptima
-para las clases. Ya se encuentra un horario preestablecido, pero puedes modificar 
-las restricciones de horarios, materias y costos, así como los nombres de los 
+st.text('''Esta calculadora te permitirá encontrar la programación de horario óptima para las clases. Ya se encuentra un horario 
+preestablecido, pero puedes modificar las restricciones de horarios, materias y costos, así como los nombres de los 
 profesores.''')
+        
+st.text('Para que la calculadora funcione correctamente, deben escribirse los nombres de los profesores alfabéticamente.')
 
 df = getData()
 dfEditado = st.experimental_data_editor(df)
 horarioFinal = getHorarioOptimo(dfEditado)
 horarioFinal.to_excel('horarioFinal.xlsx',index=False)
 
+st.text('De acuerdo a la información presentada, el horario óptimo es el siguiente.')
+
 st.dataframe(horarioFinal)
-st.text(horarioFinal['Costo'].sum()*1000)
+
+costo = horarioFinal['Costo'].sum()*1000
+st.text(f'El costo asociado a este horario es de {costo}')
 
 with open('horarioFinal.xlsx', "rb") as template_file:
         template_byte = template_file.read()
