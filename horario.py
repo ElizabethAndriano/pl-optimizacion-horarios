@@ -88,6 +88,7 @@ def getHorarioOptimo(df):
 
 df = getData()
 horarioFinal = getHorarioOptimo(df)
+horarioFinal.to_excel('horarioFinal.xlsx',index=False)
 
 st.title('Calculadora de Horario Óptimo')
 
@@ -95,3 +96,11 @@ dfEditado = st.experimental_data_editor(df)
 horarioFinal = getHorarioOptimo(dfEditado)
 
 st.dataframe(horarioFinal)
+
+with open('horarioFinal.xlsx', "rb") as template_file:
+        template_byte = template_file.read()
+
+st.download_button(label="Descargar horario",
+                    data=template_byte,
+                    file_name="horarioFinal.xlsx",
+                    mime='application/octet-stream')
